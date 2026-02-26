@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHASHANK B D - Premium Portfolio</title>
+    <meta name="description" content="Official website of Shashank B D - Entrepreneur and Innovator.">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- This small library automatically draws QR codes from text/links! -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        /* --- GLOBAL CSS --- */
+        :root { --navy: #0B132B; --navy-light: #1C2541; --gold: #D4AF37; --white: #FFFFFF; --off-white: #F8F9FA; --text-dark: #333333; --text-light: #E0E0E0; --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--off-white); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 600; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .section-title { text-align: center; font-size: 2.5rem; color: var(--navy); margin-bottom: 3rem; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 2px; background-color: var(--gold); margin: 15px auto 0; }
+        section { padding: 6rem 0; }
+        
+        .btn { display: inline-block; padding: 12px 30px; border: 1px solid var(--gold); background: transparent; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: var(--transition); }
+        .btn:hover { background: var(--gold); color: var(--navy); }
+        .btn-solid { background: var(--gold); color: var(--navy); }
+        .btn-solid:hover { background: transparent; color: var(--gold); }
+        
+        nav { position: fixed; top: 0; width: 100%; padding: 1.5rem 0; z-index: 1000; transition: var(--transition); }
+        nav.scrolled { background-color: rgba(11, 19, 43, 0.95); backdrop-filter: blur(10px); padding: 1rem 0; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--gold); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: var(--white); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background-color: var(--gold); transition: var(--transition); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--gold); }
+        
+        #home { height: 100vh; display: flex; align-items: center; text-align: center; color: var(--white); }
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        .hero-subtitle { font-size: 1rem; text-transform: uppercase; letter-spacing: 4px; color: var(--gold); margin-bottom: 1rem; display: block; }
+        .hero-content h1 { font-size: 4.5rem; margin-bottom: 1.5rem; line-height: 1.1; }
+        .hero-content p { font-size: 1.1rem; color: var(--text-light); margin-bottom: 2.5rem; font-weight: 300; }
+        
+        #about { background-color: var(--white); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-image { position: relative; padding: 10px; }
+        .about-image img { width: 100%; height: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.2); position: relative; z-index: 2; object-fit: cover; aspect-ratio: 3/4; border-radius: 8px; filter: contrast(1.05) brightness(1.02); }
+        .about-image::before { content: ''; position: absolute; top: -5px; left: -5px; width: 100%; height: 100%; border: 3px solid var(--gold); border-radius: 12px; z-index: 1; background-color: rgba(212, 175, 55, 0.05); }
+        .about-text h3 { font-size: 2rem; color: var(--navy); margin-bottom: 1rem; }
+        .about-text p { margin-bottom: 1.5rem; color: #555; }
+        
+        #portfolio { background-color: var(--off-white); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .portfolio-card { display: block; text-decoration: none; color: inherit; background: var(--white); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: var(--transition); position: relative; max-width: 500px; margin: 0 auto; width: 100%; border-radius: 8px;}
+        .portfolio-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); cursor: pointer; }
+        .portfolio-img { height: 300px; background-size: cover; background-position: center; transition: var(--transition); }
+        .portfolio-card:hover .portfolio-img { transform: scale(1.05); }
+        .portfolio-info { padding: 2rem; background: var(--white); position: relative; z-index: 2; border-top: 3px solid transparent; transition: var(--transition); text-align: center; }
+        .portfolio-card:hover .portfolio-info { border-top: 3px solid var(--gold); }
+        .portfolio-info h4 { font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--navy); }
+        .portfolio-info p { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px;}
+
+        /* --- EXCLUSIVE ACCESS & BLUR SYSTEM --- */
+        #future-projects { background-color: var(--white); position: relative; }
+        .future-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 900px; margin: 0 auto; transition: var(--transition); }
+        .future-item { background-color: var(--off-white); padding: 1rem 2rem; border: 1px solid rgba(212, 175, 55, 0.4); color: var(--navy); font-weight: 500; font-size: 1rem; transition: var(--transition); cursor: pointer; border-radius: 4px; }
+        .future-item:hover { background-color: var(--gold); color: var(--navy); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
+        
+        .locked-content { filter: blur(8px); pointer-events: none; user-select: none; opacity: 0.6; }
+        
+        .lock-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(2px); border-radius: 12px; }
+        .lock-box { background: var(--navy); color: var(--white); padding: 3rem 2rem; border-radius: 12px; text-align: center; max-width: 500px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); border: 2px solid var(--gold); }
+        .lock-box h3 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--gold); }
+        .lock-box p { font-size: 0.95rem; margin-bottom: 2rem; color: var(--text-light); }
+        .unlock-btn { font-size: 1.1rem; padding: 15px 40px; background: linear-gradient(135deg, var(--gold), #e6c55c); color: var(--navy); font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: var(--transition); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+        .unlock-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5); }
+
+        /* --- 1 RUPEE SUBSCRIPTION MODAL --- */
+        .modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(11, 19, 43, 0.9); backdrop-filter: blur(5px); justify-content: center; align-items: center; }
+        .modal-content { background: var(--white); padding: 3rem; border-radius: 12px; width: 90%; max-width: 450px; text-align: center; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 1px solid var(--gold); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888; transition: var(--transition); }
+        .close-modal:hover { color: var(--navy); }
+        .modal-content h3 { color: var(--navy); margin-bottom: 10px; }
+        .modal-content p { color: #555; font-size: 0.9rem; margin-bottom: 20px; }
+        
+        .qr-code-box { display: flex; justify-content: center; align-items: center; background: white; padding: 10px; border-radius: 8px; border: 2px solid var(--navy-light); width: 170px; height: 170px; margin: 0 auto 15px; }
+        
+        .modal-input { width: 100%; padding: 12px 15px; border: 1px solid #ccc; font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; border-radius: 4px; margin-bottom: 15px; transition: var(--transition); }
+        .modal-input:focus { border-color: var(--gold); }
+        #unlockMsg { font-weight: 600; font-size: 0.9rem; margin-top: 15px; min-height: 20px;}
+
+        /* --- PAYMENT SECTION CSS --- */
+        #payment { background-color: var(--navy); color: var(--white); }
+        #payment .section-title { color: var(--white); }
+        #payment .section-title::after { background-color: var(--gold); }
+        .payment-container { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; max-width: 1000px; margin: 0 auto; align-items: center;}
+        
+        .qr-card { background: var(--white); padding: 2rem; border-radius: 12px; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.3); }
+        .qr-card h4 { color: var(--navy); font-size: 1.3rem; margin-bottom: 1rem; }
+        .qr-card p { color: #555; font-size: 0.95rem; font-weight: 600; margin-top: 1rem;}
+        .qr-card .upi-id { display: inline-block; background: var(--off-white); padding: 8px 15px; border: 1px dashed var(--navy); border-radius: 4px; margin-top: 10px; font-family: monospace; font-size: 1.1rem; color: var(--navy); user-select: all;}
+
+        .btn-pay-app { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 1rem; font-weight: bold; background: linear-gradient(135deg, var(--gold), #e6c55c); color: var(--navy); text-decoration: none; transition: var(--transition); border: none; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); cursor: pointer; font-family: 'Montserrat', sans-serif;}
+        .btn-pay-app:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6); background: linear-gradient(135deg, #e6c55c, var(--gold)); }
+
+        .payment-verify { background: rgba(255, 255, 255, 0.05); padding: 3rem; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .payment-verify h3 { color: var(--gold); margin-bottom: 1rem; font-size: 1.6rem; }
+        .payment-verify p { color: var(--text-light); margin-bottom: 2rem; font-size: 0.95rem; }
+        
+        .verify-form { display: flex; flex-direction: column; gap: 1.2rem; }
+        .verify-form input { width: 100%; padding: 12px 15px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 1rem; outline: none; border-radius: 4px; transition: var(--transition); }
+        .verify-form input:focus { border-color: var(--gold); }
+        #payMessage { margin-top: 15px; font-weight: 600; font-size: 0.95rem; min-height: 24px;}
+        
+        #contact { background-color: var(--off-white); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
+        .contact-info h3 { font-size: 1.8rem; margin-bottom: 1.5rem; color: var(--navy); }
+        .info-item { display: flex; align-items: center; margin-bottom: 1.5rem; }
+        .info-item i { font-size: 1.5rem; color: var(--gold); margin-right: 15px; width: 30px; }
+        .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 15px 0; border: none; border-bottom: 1px solid #ccc; background: transparent; font-size: 1rem; outline: none; transition: var(--transition); }
+        .contact-form input:focus, .contact-form textarea:focus { border-bottom: 1px solid var(--gold); }
+        
+        footer { background-color: var(--navy-light); color: var(--text-light); padding: 3rem 0; text-align: center; }
+        .social-icons { margin-bottom: 1.5rem; }
+        .social-icons a { display: inline-block; width: 40px; height: 40px; line-height: 40px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; margin: 0 10px; color: var(--white); transition: var(--transition); }
+        .social-icons a:hover { background-color: var(--gold); border-color: var(--gold); color: var(--navy); }
+        .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        
+        @media (max-width: 768px) { 
+            .about-grid, .contact-grid, .payment-container { grid-template-columns: 1fr; } 
+            .hero-content h1 { font-size: 3rem; } 
+            .nav-links { display: none; } 
+            .logo { font-size: 1.2rem; } 
+            .lock-box { width: 90%; padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">SHASHANK B D</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Projects</a></li>
+                <li><a href="#payment">Pay Now</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home" style="background: linear-gradient(rgba(11, 19, 43, 0.8), rgba(11, 19, 43, 0.9)), url('https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;">
+        <div class="container hero-content fade-up">
+            <span class="hero-subtitle">Entrepreneur / Innovator</span>
+            <h1>Crafting Premium Digital Experiences</h1>
+            <p>Welcome to my exclusive portfolio. I blend sophisticated design with high-end functionality to create unforgettable visual journeys and successful businesses.</p>
+            <a href="#portfolio" class="btn btn-solid">View My Work</a>
+        </div>
+    </header>
+
+    <section id="about" class="container">
+        <h2 class="section-title fade-up">My Story</h2>
+        <div class="about-grid">
+            <div class="about-image fade-up">
+                <img src="https://i.postimg.cc/7LykdwSC/IMG-20260223-153210.jpg" alt="SHASHANK B D - Entrepreneur">
+            </div>
+            <div class="about-text fade-up">
+                <h3>Refined Vision, Flawless Execution.</h3>
+                <p>Hello! I am SHASHANK B D, a passionate entrepreneur and professional based in Karnataka, India. I have spent years perfecting the art of my craft. My approach is rooted in the belief that true elegance lies in simplicity.</p>
+                <p>Whether I am building an online store, planning a new business venture, or curating visual content, I prioritize quality, attention to detail, and a premium experience.</p>
+                <a href="#contact" class="btn" style="margin-top: 1rem;">Connect With Me</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-up">Selected Project</h2>
+            <div class="portfolio-grid" style="display: block;">
+                <a href="#" id="meeshoDirectBtn" class="portfolio-card fade-up">
+                    <div class="portfolio-img" style="background-image: url('https://i.postimg.cc/bJ2D9QcR/IMG-20260223-153746.jpg');"></div>
+                    <div class="portfolio-info">
+                        <h4>E-Commerce (Meesho Seller)</h4>
+                        <p>Online Store / Business</p>
+                        <span class="btn" style="margin-top: 15px; padding: 10px 20px; font-size: 0.8rem;">Visit My Shop <i class="fas fa-external-link-alt" style="margin-left: 5px;"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         LOCKED FUTURE PROJECTS SECTION
+         ========================================== -->
+    <section id="future-projects">
+        <div class="container" style="position: relative; padding-bottom: 2rem;">
+            <h2 class="section-title fade-up">Future Ventures</h2>
+            <p class="fade-up" style="text-align: center; color: #666; margin-top: -1.5rem; margin-bottom: 2.5rem;">An exclusive look into the businesses and projects I am building next.</p>
+            
+            <div id="lockedContent" class="future-grid fade-up locked-content">
+                <div class="future-item">Event Management</div>
+                <div class="future-item">Cafe and Resto</div>
+                <div class="future-item">Fishery</div>
+                <div class="future-item">Printable Cloth Design</div>
+                <div class="future-item">Mushroom Business</div>
+                <div class="future-item">Small Cafe</div>
+            </div>
+
+            <div id="lockBanner" class="lock-overlay">
+                <div class="lock-box">
+                    <h3><i class="fas fa-lock"></i> Locked Content</h3>
+                    <p>Join my exclusive inner circle to see the ventures I am building next. Subscription requires a one-time payment of just ₹1.</p>
+                    <button id="openSubModalBtn" class="unlock-btn">Pay ₹1 to Unlock</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1 RUPEE SUBSCRIPTION MODAL (ONLY W.APP & UTR) -->
+    <div id="subModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeSubModal">&times;</span>
+            <h3>Exclusive Access (₹1)</h3>
+            <p style="margin-bottom: 10px;">Scan or tap to pay ₹1, then enter your details to verify.</p>
+            
+            <div id="modalQRArea" class="qr-code-box"></div>
+            
+            <a href="upi://pay?pa=7348998090-2@ybl&pn=SHASHANK%20B%20D&am=1.00&cu=INR" class="btn-pay-app" id="modalMobilePayBtn" style="margin-top:0; margin-bottom: 20px; padding: 12px;">
+                <i class="fas fa-mobile-alt"></i> Pay ₹1 via App
+            </a>
+
+            <form id="unlockForm">
+                <!-- ONLY WHATSAPP & UTR REQUIRED -->
+                <input type="tel" id="subWhatsApp" class="modal-input" placeholder="Your Mobile / WhatsApp No." required>
+                <input type="text" id="subUtr" class="modal-input" placeholder="12-Digit UTR Number" required maxlength="12">
+                <button type="submit" id="unlockBtnSubmit" class="btn btn-solid" style="width: 100%;">Verify & Unlock</button>
+            </form>
+            <div id="unlockMsg"></div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         PAYMENT & VERIFICATION SECTION
+         ========================================== -->
+    <section id="payment">
+        <div class="container">
+            <h2 class="section-title fade-up">Make a Payment</h2>
+            <p class="fade-up" style="text-align: center; color: var(--text-light); margin-top: -1.5rem; margin-bottom: 3rem;">Scan the QR, use the UPI ID, or tap the button below to instantly open your payment app.</p>
+            
+            <div class="payment-container">
+                
+                <div class="qr-card fade-up">
+                    <h4>Scan & Pay</h4>
+                    <div id="mainQRArea" class="qr-code-box" style="width: 220px; height: 220px; padding: 15px;"></div>
+                    <p>UPI ID:</p>
+                    <span class="upi-id">7348998090-2@ybl</span>
+
+                    <button id="smartPayBtn" class="btn-pay-app">
+                        <i class="fas fa-mobile-alt"></i> Pay Directly via App
+                    </button>
+                    <p style="font-size: 0.75rem; color: #888; margin-top: 8px;">(Tap on mobile to open PhonePe, GPay, Paytm)</p>
+                </div>
+
+                <div class="payment-verify fade-up" style="transition-delay: 0.1s;">
+                    <h3>Verify Transaction</h3>
+                    <p>After paying, enter your 12-digit UTR and Mobile number below so we can track and complete your order.</p>
+                    
+                    <form id="paymentForm" class="verify-form">
+                        <!-- ONLY WHATSAPP & UTR REQUIRED -->
+                        <input type="tel" id="payWhatsApp" placeholder="Your Mobile / WhatsApp No." required>
+                        <input type="text" id="payUtr" placeholder="12-Digit UTR / Ref Number" required maxlength="12">
+                        
+                        <button type="submit" id="payBtn" class="btn btn-solid" style="margin-top: 10px; width: 100%;">Confirm Payment</button>
+                        
+                        <div id="payMessage"></div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container">
+        <h2 class="section-title fade-up">Get in Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-info fade-up">
+                <h3>Contact Details</h3>
+                <p style="margin-bottom: 2rem; color: #666;">Interested in collaborating or have an inquiry? Reach out directly via the information below.</p>
+                <div class="info-item"><i class="fas fa-envelope"></i><span>shashankbd07@gmail.com</span></div>
+                <div class="info-item"><i class="fas fa-phone"></i><span>+91 7348998090</span></div>
+                <div class="info-item"><i class="fas fa-map-marker-alt"></i><span>Karnataka, India</span></div>
+            </div>
+            
+            <div class="contact-form-wrapper fade-up">
+                <!-- IMPORTANT: REPLACE "YOUR_FORMSPREE_ID" BELOW SO EMAILS REACH YOU -->
+                <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="contact-form">
+                    <div class="input-group"><input type="text" name="name" placeholder="Your Name" required></div>
+                    <div class="input-group"><input type="email" name="email" placeholder="Your Email" required></div>
+                    <div class="input-group"><textarea name="message" rows="5" placeholder="Your Message" required></textarea></div>
+                    <button type="submit" class="btn" style="align-self: flex-start;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container fade-up">
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <p>&copy; 2026 SHASHANK B D Portfolio. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Auto-Generate QR Codes
+        setTimeout(() => {
+            new QRCode(document.getElementById("mainQRArea"), { text: "upi://pay?pa=7348998090-2@ybl&pn=SHASHANK%20B%20D&cu=INR", width: 190, height: 190, colorDark : "#0B132B", colorLight : "#ffffff" });
+            new QRCode(document.getElementById("modalQRArea"), { text: "upi://pay?pa=7348998090-2@ybl&pn=SHASHANK%20B%20D&am=1.00&cu=INR", width: 150, height: 150, colorDark : "#0B132B", colorLight : "#ffffff" });
+        }, 100);
+
+        // Scroll Animation
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+        });
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }});
+        }, observerOptions);
+        document.querySelectorAll('.fade-up').forEach((elem) => { observer.observe(elem); });
+
+        // Meesho Link
+        document.getElementById('meeshoDirectBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const myActualMeeshoURL = "https://www.meesho.com/"; 
+            if(myActualMeeshoURL === "https://www.meesho.com/" || myActualMeeshoURL === "") {
+                alert("⚠ IMPORTANT: Paste your REAL Public Meesho Product Link into the 'myActualMeeshoURL' section inside the JavaScript.");
+                window.open("https://www.meesho.com/", "_blank");
+            } else { window.open(myActualMeeshoURL, "_blank"); }
+        });
+
+        // Smart UPI App Button
+        function handleMobilePay(btnId, upiLink) {
+            document.getElementById(btnId).addEventListener('click', function(e) {
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                if (isMobile) {
+                    if(btnId === 'smartPayBtn') { e.preventDefault(); window.location.href = upiLink; }
+                } else {
+                    e.preventDefault();
+                    alert("💻 Notice: Direct App Opening only works on Mobile Phones!\n\nPlease scan the QR code above.");
+                }
+            });
+        }
+        handleMobilePay('smartPayBtn', "upi://pay?pa=7348998090-2@ybl&pn=SHASHANK%20B%20D&cu=INR");
+        handleMobilePay('modalMobilePayBtn', "upi://pay?pa=7348998090-2@ybl&pn=SHASHANK%20B%20D&am=1.00&cu=INR");
+
+        // ==========================================
+        // 1 RUPEE SUBSCRIPTION UNLOCK LOGIC
+        // ==========================================
+        const lockedContent = document.getElementById('lockedContent');
+        const lockBanner = document.getElementById('lockBanner');
+        const subModal = document.getElementById('subModal');
+        
+        if(localStorage.getItem('shashank_subscribed') === 'true') {
+            lockedContent.classList.remove('locked-content');
+            lockBanner.style.display = 'none';
+        }
+
+        document.getElementById('openSubModalBtn').onclick = function() { subModal.style.display = "flex"; }
+        document.getElementById('closeSubModal').onclick = function() { subModal.style.display = "none"; }
+        window.onclick = function(event) { if (event.target == subModal) { subModal.style.display = "none"; } }
+
+        document.getElementById('unlockForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('unlockBtnSubmit');
+            const utr = document.getElementById('subUtr').value.trim();
+            const wapp = document.getElementById('subWhatsApp').value.trim();
+            const msgDiv = document.getElementById('unlockMsg');
+
+            btn.disabled = true;
+            msgDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying with Server...';
+            msgDiv.style.color = 'var(--gold)';
+
+            setTimeout(async () => {
+                if(utr.length < 12) {
+                    msgDiv.innerHTML = '<i class="fas fa-times-circle"></i> Failed: Invalid UTR Number.';
+                    msgDiv.style.color = '#ff4d4d'; 
+                    btn.disabled = false;
+                } else {
+                    try {
+                        // IMPORTANT: PASTE YOUR FORMSPREE ID BELOW!
+                        await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                Subject: "NEW ₹1 UNLOCK PAID!",
+                                WhatsApp_Number: wapp,
+                                UTR_Number: utr,
+                            })
+                        });
+
+                        msgDiv.innerHTML = '<i class="fas fa-unlock"></i> Payment Successful! Content Unlocked.';
+                        msgDiv.style.color = '#00ff00'; 
+                        
+                        localStorage.setItem('shashank_subscribed', 'true');
+                        
+                        setTimeout(() => {
+                            subModal.style.display = "none";
+                            lockedContent.classList.remove('locked-content');
+                            lockBanner.style.opacity = '0';
+                            setTimeout(() => { lockBanner.style.display = 'none'; }, 500);
+                        }, 1500);
+
+                    } catch (error) {
+                        msgDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error.';
+                        msgDiv.style.color = '#ff4d4d';
+                        btn.disabled = false;
+                    }
+                }
+            }, 2500); 
+        });
+
+        // ==========================================
+        // REGULAR PAYMENT VERIFICATION LOGIC
+        // ==========================================
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('payBtn');
+            const utr = document.getElementById('payUtr').value.trim();
+            const wapp = document.getElementById('payWhatsApp').value.trim();
+            const msgDiv = document.getElementById('payMessage');
+
+            btn.disabled = true;
+            msgDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Transaction...';
+            msgDiv.style.color = 'var(--gold)';
+
+            setTimeout(async () => {
+                if(utr.length < 12) {
+                    msgDiv.innerHTML = '<i class="fas fa-times-circle"></i> Failed: Invalid UTR Number. Must be 12 digits.';
+                    msgDiv.style.color = '#ff4d4d'; 
+                    btn.disabled = false;
+                } else {
+                    try {
+                        // IMPORTANT: PASTE YOUR FORMSPREE ID BELOW!
+                        await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                Subject: "NEW MAIN PAYMENT RECEIVED!",
+                                WhatsApp_Number: wapp,
+                                UTR_Number: utr,
+                            })
+                        });
+
+                        msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> Payment Successful! Thank you.';
+                        msgDiv.style.color = '#00ff00'; 
+                        document.getElementById('paymentForm').reset();
+                        btn.disabled = false;
+                    } catch (error) {
+                        msgDiv.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Network error. Please try again.';
+                        msgDiv.style.color = '#ff4d4d';
+                        btn.disabled = false;
+                    }
+                }
+            }, 3000); 
+        });
+    </script>
+</body>
+</html>
